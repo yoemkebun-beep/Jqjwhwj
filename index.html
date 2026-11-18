@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FarmaSur">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#0f6b4f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8A%3C/text%3E%3C/svg%3E">
+<title>FarmaSur Las Tunas – Inventario</title>
+<style>
+:root{--bg:#f3f6f4;--sf:#fff;--tx:#14231d;--mu:#5d6f67;--ln:#d6e0da;--ac:#0f6b4f;--ac2:#fff;--rd:#b3261e;--rb:#fdeceb;--am:#8a5a00;--ab:#fff3d6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1814;--sf:#16241e;--tx:#e6f0ea;--mu:#93a79d;--ln:#294036;--ac:#4cc79b;--ac2:#06231a;--rd:#ff8a80;--rb:#3a1d1b;--am:#f2c45e;--ab:#3a2e10}}
+:root[data-theme="dark"]{--bg:#0e1814;--sf:#16241e;--tx:#e6f0ea;--mu:#93a79d;--ln:#294036;--ac:#4cc79b;--ac2:#06231a;--rd:#ff8a80;--rb:#3a1d1b;--am:#f2c45e;--ab:#3a2e10}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 "Segoe UI",system-ui,-apple-system,sans-serif;padding-bottom:84px}
+header{padding:18px 16px 4px;max-width:760px;margin:auto;display:flex;gap:10px;align-items:flex-start}
+header div{flex:1}
+h1{font-size:22px;margin:0 0 2px;letter-spacing:-.01em}
+.sub{color:var(--mu);font-size:14px;margin:0}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;padding:8px 16px;max-width:760px;margin:auto}
+input,select{font:inherit}
+input[type=search]{width:100%;padding:12px 14px;border:1px solid var(--ln);border-radius:10px;background:var(--sf);color:var(--tx)}
+.tabs{display:flex;gap:6px;margin-top:8px;overflow-x:auto}
+.tabs button{flex:1;white-space:nowrap;padding:10px 12px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);border-radius:10px;font-size:14px;cursor:pointer}
+.tabs button[aria-pressed=true]{background:var(--ac);color:var(--ac2);border-color:var(--ac);font-weight:600}
+main{max-width:760px;margin:auto;padding:4px 16px}
+.it{background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:12px;margin:8px 0}
+.it.sel{border-color:var(--ac);box-shadow:inset 4px 0 0 var(--ac)}
+.top{display:flex;align-items:flex-start;gap:12px}
+.top input{width:24px;height:24px;accent-color:var(--ac);flex:none;margin-top:2px}
+.nm{flex:1;min-width:0}.nm b{display:block;font-weight:600;overflow-wrap:anywhere}
+.nm small{color:var(--mu)}
+.st{flex:none;text-align:center;min-width:56px;padding:6px 8px;border-radius:8px;font-weight:700}
+.st small{display:block;font-weight:400;font-size:11px}
+.z{background:var(--rb);color:var(--rd)}.l{background:var(--ab);color:var(--am)}.o{background:var(--bg);color:var(--mu)}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 10px;margin:10px 0 0 36px;font-size:14px}
+.g span{display:block;color:var(--mu);font-size:12px}
+.act{display:flex;gap:8px;margin:10px 0 0 36px}
+.act button{padding:8px 12px;border-radius:8px;border:1px solid var(--ln);background:transparent;color:var(--tx);font-size:14px;cursor:pointer}
+.act .del{color:var(--rd)}.act .vd{background:var(--ac);color:var(--ac2);border-color:var(--ac);font-weight:600}
+.empty{text-align:center;color:var(--mu);padding:32px 0}
+footer{position:fixed;left:0;right:0;bottom:0;background:var(--sf);border-top:1px solid var(--ln);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;align-items:center;justify-content:center;z-index:6}
+footer div{flex:1;max-width:420px;font-size:13px}
+button.p{padding:12px 14px;border-radius:10px;border:0;background:var(--ac);color:var(--ac2);font-weight:600;font-size:15px;cursor:pointer}
+button.s{padding:12px 12px;border-radius:10px;border:1px solid var(--ln);background:transparent;color:var(--tx);font-size:14px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center;z-index:10}
+#ov.on{display:flex}
+.sh{background:var(--sf);width:100%;max-width:560px;max-height:92%;overflow:auto;border-radius:16px 16px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+.sh h2{margin:0 0 12px;font-size:18px}
+.sh label{display:block;font-size:13px;color:var(--mu);margin-top:10px}
+.sh input{width:100%;padding:11px 12px;border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--tx)}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.calc{margin-top:12px;padding:10px;background:var(--bg);border-radius:10px;font-size:14px}
+.btns{display:flex;gap:10px;margin-top:16px}.btns button{flex:1}
+.al{background:var(--rb);color:var(--rd);border:1px solid var(--rd);border-radius:10px;padding:12px;margin:8px 0;font-size:15px}.al button{display:block;margin-top:8px;padding:8px 12px;border-radius:8px;border:1px solid var(--rd);background:transparent;color:var(--rd);font-size:14px;cursor:pointer}
+.zb{margin:8px 0}.zb button{width:100%}
+.sh textarea{width:100%;min-height:220px;padding:10px;border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;font-size:14px}
+.fr{border:1px solid var(--ln);border-radius:10px;padding:10px;margin:8px 0}.fr select{width:100%;padding:10px;border:1px solid var(--ln);border-radius:8px;background:var(--bg);color:var(--tx);margin-top:8px;font:inherit;font-size:14px}.fq{display:flex;gap:8px;align-items:center;margin-top:6px}.fq input{width:80px;margin:0}.fs{font-size:13px;margin-top:6px}.fs.ok{color:var(--ac)}.fs.bad,.bad{color:var(--rd)}.fs.wr{color:var(--am)}
+#msg{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:var(--tx);color:var(--bg);padding:10px 14px;border-radius:10px;font-size:14px;display:none;z-index:20}
+</style></head><body>
+<header><div><h1>Inventario FarmaSur</h1><p class="sub" id="sum"></p></div><button class="p" id="fa">Factura</button><button class="s" id="bk">Respaldo</button></header>
+<div class="bar"><input type="search" id="q" placeholder="Buscar producto" aria-label="Buscar producto">
+<div class="tabs" id="tabs"></div></div>
+<main id="list"></main>
+<footer><div id="cnt"></div><button class="s" id="ex">CSV</button><button class="s" id="cp">Copiar</button><button class="p" id="add">+ Agregar</button></footer>
+<div id="ov"><div class="sh" id="sh"></div></div><div id="msg"></div>
+<script>
+const SEED=[["Ácido acetilsalicílico (Aspirina)","81 mg",20,11,400,250],["Clotomax-B (Triple antibiótico)","30 g",0,0,800,250],["Desloratadina","5 mg",0,0,250,250],["Paracetamol sódico+ declofenaco","50+500 mg",26,2,400,250],["Saflox-D (vitamina A,D)","",38,0,400,250],["Aceite de recibo","60 ml",0,0,1000,250],["Acetaminofen con vitamina","500",0,0,600,250],["Acetaminofen jarabe","60 ml",0,0,1200,250],["Aciclovir","400 mg",7,5,650,250],["Aciclovir crema trópica 5%","15 g",5,5,1300,250],["Aciclovir ruso crema","10 g",6,0,1300,250],["Ácido folico","5 mg",11,0,400,250],["Ácido fólico","1mg",0,0,200,250],["Albendazol","400 mg",10,0,500,250],["Albendazol 200mg/5ml","10 ml",0,0,600,250],["Alcanfore","U",0,0,250,250],["Allopurinolo","300 mg",20,0,400,250],["Alpalide","100 mg",0,0,250,250],["Alusil (Pepsamar)","234 mg",10,6,450,250],["Ambroxol jarabe","120 ml",0,0,1700,250],["Amlodipino","10 mg",31,0,400,250],["Amoxicilina","500mg",15,0,500,250],["Amoxicilina en suspensión","60 ml",5,2,1700,250],["Amoxicilina suspensión","120 ml",0,0,1200,250],["Ampicilina","500 mg",0,0,500,250],["Antiácido (stomaliv)","5g",0,0,200,250],["Antigripal  (4 tableta)","500 mg",20,19,450,250],["Antigripal jarabe","120",11,4,2500,250],["Antigripal jarabe","120",0,0,1200,250],["Atenolol","100 mg",35,7,400,250],["Atenolol + Clortalidona","50 mg + 12,5mg",0,0,500,250],["Atorvastatina","20 mg",10,0,500,250],["Atorvastatina","10 mg",0,0,300,250],["Azitromicina","500 mg",26,7,600,250],["Azitromicina Polvo para suspensión oral,200 mg/5 ml","100/5 ml",5,2,800,250],["Banda elástica","",0,0,500,250],["Bensuato de bencilio","60 ml",0,0,1200,250],["Benzatinica","1.2 M",6,1,600,250],["Betametasona 0.05%","20g",2,0,1000,250],["Bisacodilo","5mg",0,0,500,250],["Branula # 20","U",0,0,300,250],["Branula # 23","U",0,0,300,250],["Branula #24","U",0,0,300,250],["Calcio Carbonato + Vitamina D3","240 mg",6,3,400,250],["Candersantan","",0,0,500,250],["Captopril","25 mg",22,15,400,250],["Captopril","50mg",0,0,300,250],["Carvedilol","6.25",11,0,500,250],["Carbón Activado ruso","250 mg",0,0,400,250],["Carbonato de calcio","500 mg",0,0,450,250],["Catéter intravenoso Amarillo","24G",15,3,400,250],["Catéter intravenoso Azul","22G",0,0,300,250],["Catéter intravenoso Rosado","20G",0,0,300,250],["Cefalexina","500 mg",0,0,500,250],["Cefalexina cápsula","500",12,0,600,250],["Cefalexina polvo para suspensión","120 ml",5,2,1700,250],["Ceftriaxona suspensión oral","1 g",0,0,500,250],["Cetirizina","10 mg",25,13,400,250],["Cetirizina jarabe","60 ml",5,4,1200,250],["Champiojo (Cirpemetrina)","12 ml",0,0,400,250],["Ciprofloxacina","500 mg",23,0,500,250],["Ciprofloxacino","5 ml",0,0,600,250],["Ciproheptadina","4 mg",25,19,400,250],["Clobetasol crema","25g",0,0,900,250],["Clobetasol crema 0.05%","25 g",0,0,1000,250],["Clopidogrel","75 mg",20,9,600,250],["Clorafenicol Gota de Ojo","5 ml",0,0,600,250],["Clorfeniramina","4 mg",0,0,230,250],["Clotomax (triple antibiótico)","30 g",0,0,950,250],["Clotrimazol (óvulo) 5 unidades","100mg",6,2,650,250],["Clotrimazol crema 1%","20g",5,2,1000,250],["Clotrimazol crema 2%","30 g",11,4,1000,250],["Colector de orina","1000ml",5,2,850,250],["Colket shampu","",0,0,1200,250],["Complejo b jarabe","120",0,0,1500,250],["Complejo Multivitaminico  B","",26,9,400,250],["Crema triple","30g",0,0,800,250],["Crema triple Triclobet B (crema)","30 g",0,0,800,250],["Curitas (1 caga de 10 U)","U",0,0,260,250],["Dexametasona","0.5 mg",0,0,400,250],["Dexametasona","4 mg",25,9,500,250],["Dexametasona inyectable","",20,19,400,250],["Diclofenaco Analgésico Antiinflamatorio 1%","50 g",0,0,1000,250],["Diclofenaco de sodio","5 ml",0,0,400,250],["Diclofenaco Dietilamina Gel","25 g",4,4,1300,250],["Diclofenaco inyectable","",18,0,400,250],["Diclofenaco potásico","100 mg",10,9,400,250],["Diclofenaco potásico","50 mg",20,3,400,250],["Diclofenaco Sódico","100 mg",20,18,400,250],["Diclofenaco Sodico","50 mg",0,0,250,250],["Difenhidramina","25 mg",31,18,400,250],["Difenhidramina","50 mg",0,0,400,250],["Difenhidramina (Cápsulas)","50 mg",0,0,500,250],["Difenhidramina jarabe","120 ml",4,4,1700,250],["Dipirona","500 mg",0,0,550,250],["Dipirona inyectable","",41,36,600,250],["Dolocom","100 mg",20,12,650,250],["Domazol Domperidona con Omeprazol","",12,7,400,250],["Domperidona","10mg",20,7,450,250],["Doxicicilina","100 mg",7,4,400,250],["Enalapril","10 mg",0,0,200,250],["Enalapril","20 mg",40,20,400,250],["Esparadrapo","",0,0,500,250],["Espironolactona","25 mg",8,5,600,250],["Famotidina","20",0,0,450,250],["Fluconazol (1 cápsula)","150",0,0,250,250],["Fumarato ferroso","200 mg",10,6,400,250],["Furosemida","40mg",27,0,400,250],["Furosemida bulbo","2 ml",10,0,400,250],["Genfar Carvedilol","6.25 mg",0,0,550,250],["Gentamicina gota 0.3%","10 ml",5,2,1000,250],["Gentamicina inyectable","80 mg/2ml",30,29,400,250],["Gentamicina sulfato 1mg/g","20 g",5,1,1300,250],["Glibenclamida","5mg",6,0,400,250],["Gota nasal","15",0,0,200,250],["Grabinol (dimenhidrinato)","50 mg",20,4,400,250],["Guantes","U",0,0,150,250],["Hematinico jarabe","120 ml",0,0,1700,250],["Hemoclar","20 g",0,0,950,250],["Hexavitaminivo","",50,47,600,250],["Hidroclorotiazida","25 mg",0,0,400,250],["Hidroclorotiazida","50 mg",50,0,400,250],["Hidrocortisona  Crema","15 g",7,0,1300,250],["Hidrocortisona acetato","15g",2,2,1200,250],["Hidrocortisona bulbo","100 mg",0,0,300,250],["ibuprofeno","800",0,0,450,250],["ibuprofeno","600 mg",17,7,400,250],["ibuprofeno","400 mg",0,0,300,250],["ibuprofeno","200mg",0,0,250,250],["ibuprofeno suspensión","100 ml",4,4,1700,250],["Iconia crema","50g",0,0,1200,250],["inhalador vaporal","U",2,2,400,250],["Jeringa","20 ml",0,0,150,250],["jeringas","5ml",20,0,200,250],["jeringas","10ml",20,8,200,250],["Jeringuilla de insulina","",15,0,150,250],["Ketoconazol","200 mg",0,0,500,250],["Ketoconazol 2% (crema)","20 g",5,0,1300,250],["Ketoconazol crema 2%","30 g",4,4,1400,250],["ketotifeno ruso","",7,3,400,250],["Laxante (2 tabletas)","10 mg",10,0,400,250],["Leche magnesia","60 ml",10,9,1100,250],["Levofloxacina","500 mg",10,2,600,250],["Levotiroxina Sodica","100mg",20,2,1200,250],["Levotiroxina Sodica 10 tabletas","100 mg",0,0,700,250],["Loción de zinc","120 ml",9,7,1700,250],["Loción mosquito","100 ml",0,0,1300,250],["loperamida","2mg",10,0,400,250],["Loratadina","10mg",10,0,400,250],["Loratadina jarabe","60 ml",7,2,1050,250],["Losartan","50 mg",23,0,400,250],["Losartan","100 mg",0,0,400,250],["Lubricante (4 paquetes)","",0,0,40,250],["Mebendazol","100mg",26,13,300,250],["Meloxicam","15",10,8,400,250],["Mentol (Vapour Rub)","25ml",0,0,400,250],["Mentol crema","150 ml",0,0,1100,250],["Mentol palco","150 ml",0,0,1200,250],["Mentol vapored","25g",10,4,800,250],["Metformina","500 mg",11,0,400,250],["Metocarbamol","750mg",20,7,1000,250],["Metoclopramida","10mg",20,19,400,250],["Metronidazol","500mg",15,11,400,250],["Metronidazol Nistatina. 5 unidad (Óvulos Vaginales)","500mg",6,3,750,250],["Metronidazol suspensión","120 ml",4,1,1700,250],["Miconazol nitrato 2% p/p (Crema)","30",5,0,1200,250],["Mochitas para canalizar venas","500mg",20,14,400,250],["Multivitaminas jarabe","120",0,0,1600,250],["Multivitaminico jarabe","120ml",0,0,1200,250],["Multivitaminico ruso","",0,0,400,250],["Multivitaminico\nCon Minerales +\nAntioxidantes","",0,0,500,250],["Naproxeno","500 mg",0,0,700,250],["Nifedipina","20 mg",30,26,400,250],["Nifedipino","10 mg",60,10,400,250],["Nistatina 100.000 IU crema","30 g",5,2,1300,250],["Nistatina Vaginal (5 unidades)","UL",4,0,750,250],["Nitrofurazona crema","20 g",0,0,800,250],["Nsitatina suspension","30 ml",5,0,1000,250],["Omega 3","",0,0,400,250],["Omeprazol","20mg",29,9,400,250],["Omeprazol cápsulas","20 mg",0,0,250,250],["Ovulos de metronidazol","",0,0,0,250],["Paracetamol","500 mg",100,29,500,250],["Paracetamol","1g",0,0,300,250],["Paracetamol jarabe","120 ml",5,4,1700,250],["Paracetamol(Acetaminofen)","500mg",0,0,230,250],["Paracetamol(Supositorio) 3 unidades","300mg",4,4,450,250],["Pasedol (Dimenhidrinato)","50mg",0,0,400,250],["Pastillas anticonceptivas (Aminor 21 tabletas)","",5,3,450,250],["Permetrina 5% (crema)","30 g",4,0,1000,250],["Piojin","1.5z",0,0,950,250],["Piroxicam","20mg",30,17,450,250],["Portil (Triclobet)","20g",0,0,800,250],["Prednisolona 10 tabletas","5mg",13,8,400,250],["Prednisolona 15 tabletas","10 mg",0,0,350,250],["Prednisona","20 mg",17,16,500,250],["Prednisona","5 mg",1,0,400,250],["Propranolol","40 mg",20,6,400,250],["Ranitidina","300mg",0,0,300,250],["Ranitidina","150 mg",20,18,650,250],["Ranitidina bulbo","2 ml",20,4,400,250],["Rosefin","1 g",7,4,750,250],["Rupatadina","10 mg",0,0,300,250],["Salbutamol salbumed","2 ml",0,0,3500,250],["Salbutamol inhalation","",20,4,2700,250],["Salbutamol presurizado","120ml",10,3,2800,250],["Salbutamol pomo","U",0,0,1200,250],["Salbutamol tableta","4 mg",0,0,300,250],["Sales de Rehidratacion Oral","26.505",20,0,400,250],["Sales saborizada","",43,38,400,250],["Secnidazol","500 mg",15,8,400,250],["Simeticona","15 ml",0,0,1200,250],["Sinaflan ruso","2",2,1,650,250],["Sonda de Foley #18","U",0,0,800,250],["Sulfaprim","480 mg",10,8,400,250],["Sulfaprim en suspensión","120 ml",0,0,900,250],["Sulfato ferroso","300",10,0,400,250],["Sulfato ferroso","200 mg",10,5,300,250],["Sulfato ferroso tableta","300 mg",0,0,400,250],["Sutura cromada","75 cm",5,1,150,250],["Sutura nailon","75 cm",10,6,150,250],["Terbinafina 1% (crema)","20 g",8,6,1500,250],["Terbinafina rusa 1% (crema)","15 g",0,0,800,250],["Termómetro","U",20,1,1800,250],["Tes de embarazo","U",5,0,400,250],["Tetraciclina","500 mg",10,0,500,250],["Tinidazol","500 mg",10,8,400,250],["Tintura de yodo","",5,2,1000,250],["Tonalftato","15g",0,0,800,250],["Triple antibiótico betagenzol (crema)","30g",5,0,1500,250],["Truabin Complejo B (solución inyectable)","10 ml",0,0,1500,250],["Vacuna anticonceptiva por tres meses (inyección),","150 mg/ml",0,0,800,250],["Violeta genciana","30g",0,0,750,250],["Vitamina B 12 bulbo","1 ml",0,0,250,250],["Vitamina B1","20ml",0,0,350,250],["Vitamina C","500 mg",19,17,450,250],["Vitamina C jarabe","100ml",10,4,1700,250],["Vitamina c masticable","",210,90,400,250],["Vitamina c pedriatixa","15 ml",0,0,0,250],["Vitamina Complejo B","120",5,4,2500,250]];
+const mk=(r,i)=>({id:i,n:r[0],u:r[1],en:r[2],sa:r[3],co:r[4],usd:r[5]});
+let S={items:SEED.map(mk),next:SEED.length,sel:[]},tab="d";
+try{const j=JSON.parse(localStorage.getItem("fs_v2")||"null");if(j&&j.items)S=j}catch(e){}
+const sortA=()=>S.items.sort((a,b)=>a.n.trim().localeCompare(b.n.trim(),"es",{sensitivity:"base"}));
+sortA();S.alerts=S.alerts||[];S.orders=S.orders||[];
+const save=()=>{try{localStorage.setItem("fs_v2",JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const N=v=>(Math.round(v*100)/100).toLocaleString("es");
+const ex=x=>x.en-x.sa, inv=x=>ex(x)*x.co, pp=x=>x.usd?x.co/x.usd:0;
+const cls=s=>s<=0?"z":s<=3?"l":"o";
+const sel=()=>new Set(S.sel);
+function toast(t){const m=$("msg");m.textContent=t;m.style.display="block";setTimeout(()=>m.style.display="none",2000)}
+function tabs(){const Z=S.items.filter(x=>ex(x)<=0).length,L=S.items.filter(x=>ex(x)>0&&ex(x)<=3).length;
+ const T=[["d","Con stock ("+(S.items.length-Z)+")"],["z","Agotados ("+Z+")"],["l","Pocos ("+L+")"],["a","Todos"],["m","Marcados"]];
+ $("tabs").innerHTML=T.map(t=>`<button data-t="${t[0]}" aria-pressed="${tab==t[0]}">${t[1]}</button>`).join("");
+ $("sum").textContent=Z+" agotados de "+S.items.length+" productos · inversión "+N(S.items.reduce((s,x)=>s+Math.max(inv(x),0),0))}
+const alertsHTML=()=>S.alerts.length?'<div class="al"><b>⚠ Se agotó:</b> '+S.alerts.map(a=>esc(a.n)).join(", ")+'<button id="okal">Entendido</button></div>':'';
+function render(){
+ const q=$("q").value.toLowerCase().trim(),ss=sel();
+ const a=S.items.map((x,i)=>[x,i+1]).filter(([x])=>(tab=="d"?ex(x)>0:tab=="z"?ex(x)<=0:tab=="l"?ex(x)>0&&ex(x)<=3:tab=="m"?ss.has(x.id):true)&&(!q||x.n.toLowerCase().includes(q)));
+ $("list").innerHTML=alertsHTML()+(tab=="z"?'<div class="zb"><button class="p" id="zl">Ver y copiar lista de agotados</button></div>':tab=="l"?'<div class="zb"><button class="p" id="pl">Ver y copiar lista de pocos</button></div>':'')+(a.length?a.map(([x,i])=>{const e=ex(x);return `<div class="it${ss.has(x.id)?" sel":""}"><div class="top"><input type="checkbox" data-i="${x.id}"${ss.has(x.id)?" checked":""} aria-label="Marcar para reponer"><div class="nm"><b>${i}. ${esc(x.n)}</b><small>${esc(x.u)||"—"}</small></div><div class="st ${cls(e)}">${e}<small>${e<=0?"agotado":"existencia"}</small></div></div>
+<div class="g"><div><span>Entrada</span>${x.en}</div><div><span>Salida</span>${x.sa}</div><div><span>Existencia</span>${e}</div><div><span>Compra</span>${N(x.co)}</div><div><span>$ Inversión</span>${N(inv(x))}</div><div><span>USD Tienda</span>${N(x.usd)}</div><div><span>Precio Página</span>${N(pp(x))}</div></div>
+<div class="act"><button class="vd" data-v="${x.id}">Vender</button><button data-e="${x.id}">Editar</button><button class="del" data-d="${x.id}">Eliminar</button></div></div>`}).join(""):'<p class="empty">No hay productos aquí.</p>');
+ const m=S.items.filter(x=>ss.has(x.id));
+ $("cnt").textContent=m.length?m.length+" marcados · ref. "+N(m.reduce((s,x)=>s+x.co,0))+" CUP":"Nada marcado";
+ tabs()}
+function form(x){
+ const n=!x;x=x||{n:"",u:"",en:0,sa:0,co:0,usd:250};
+ $("sh").innerHTML=`<h2>${n?"Agregar producto":"Editar producto"}</h2>
+<label>Nombre del producto<input id="f_n" value="${esc(x.n)}"></label>
+<div class="r2"><label>U/M<input id="f_u" value="${esc(x.u)}"></label><label>Compra<input id="f_co" type="number" inputmode="decimal" value="${x.co}"></label>
+<label>Entrada<input id="f_en" type="number" inputmode="decimal" value="${x.en}"></label><label>Salida<input id="f_sa" type="number" inputmode="decimal" value="${x.sa}"></label>
+<label>USD Tienda<input id="f_usd" type="number" inputmode="decimal" value="${x.usd}"></label></div>
+<div class="calc" id="calc"></div>
+<div class="btns"><button class="s" id="f_x">Cancelar</button><button class="p" id="f_ok">Guardar</button></div>`;
+ const v=id=>parseFloat($(id).value)||0;
+ const cu=()=>{const t={en:v("f_en"),sa:v("f_sa"),co:v("f_co"),usd:v("f_usd")};$("calc").textContent="Existencia "+(t.en-t.sa)+" · Inversión "+N((t.en-t.sa)*t.co)+" · Precio Página "+N(pp(t))};
+ ["f_en","f_sa","f_co","f_usd"].forEach(i=>$(i).oninput=cu);cu();
+ $("f_x").onclick=()=>$("ov").classList.remove("on");
+ $("f_ok").onclick=()=>{const nm=$("f_n").value.trim();if(!nm){toast("Escribe el nombre");return}
+  const d={n:nm,u:$("f_u").value.trim(),en:v("f_en"),sa:v("f_sa"),co:v("f_co"),usd:v("f_usd")};
+  if(n){S.items.push({id:S.next++,...d});tab="a";$("q").value=""}else{const b4=ex(x);Object.assign(x,d);S.alerts=S.alerts.filter(a=>a.id!=x.id);if(b4>0&&ex(x)<=0){S.alerts.push({id:x.id,n:x.n});if(!S.sel.includes(x.id))S.sel.push(x.id);toast("⚠ Se agotó: "+x.n)}}sortA();
+  save();$("ov").classList.remove("on");render();if(n||!S.alerts.some(a=>a.id==x.id))toast(n?"Producto agregado":"Cambios guardados")};
+ $("ov").classList.add("on")}
+function zlist(){
+ const z=S.items.filter(x=>ex(x)<=0),t="Agotados – FarmaSur Las Tunas\n"+z.map(x=>"- "+x.n+(x.u?" ("+x.u+")":"")).join("\n");
+ $("sh").innerHTML=`<h2>Agotados (${z.length})</h2><pre id="zt" style="white-space:pre-wrap;font:inherit;font-size:14px;background:var(--bg);padding:10px;border-radius:10px;max-height:50vh;overflow:auto;margin:0">${esc(t)}</pre><div class="btns"><button class="s" id="z_x">Cerrar</button><button class="p" id="z_cp">Copiar lista</button></div>`;
+ $("z_x").onclick=()=>$("ov").classList.remove("on");
+ $("z_cp").onclick=async()=>{try{await navigator.clipboard.writeText(t);toast("Lista copiada ("+z.length+")")}catch(e){const r=document.createRange();r.selectNodeContents($("zt"));const g=getSelection();g.removeAllRanges();g.addRange(r);toast("Selecciona y copia")}};
+ $("ov").classList.add("on")}
+function plist(){
+ const z=S.items.filter(x=>ex(x)>0&&ex(x)<=3),t="Pocos – FarmaSur Las Tunas\n"+z.map(x=>"- "+x.n).join("\n");
+ $("sh").innerHTML=`<h2>Pocos (${z.length})</h2><pre id="zt" style="white-space:pre-wrap;font:inherit;font-size:14px;background:var(--bg);padding:10px;border-radius:10px;max-height:50vh;overflow:auto;margin:0">${esc(t)}</pre><div class="btns"><button class="s" id="z_x">Cerrar</button><button class="p" id="z_cp">Copiar lista</button></div>`;
+ $("z_x").onclick=()=>$("ov").classList.remove("on");
+ $("z_cp").onclick=async()=>{try{await navigator.clipboard.writeText(t);toast("Lista copiada ("+z.length+")")}catch(e){const r=document.createRange();r.selectNodeContents($("zt"));const g=getSelection();g.removeAllRanges();g.addRange(r);toast("Selecciona y copia")}};
+ $("ov").classList.add("on")}
+async function dl(name,blob){
+ try{const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);return true}catch(e){toast("No se pudo descargar");return false}}
+function bkSheet(){
+ const lb=S.lastBk?new Date(S.lastBk).toLocaleDateString("es"):"nunca";
+ $("sh").innerHTML=`<h2>Respaldo</h2><p class="sub">Último respaldo guardado: ${lb}</p><p style="font-size:14px">Guarda el archivo en un lugar seguro (WhatsApp, Telegram, correo o la nube). Si pierdes el teléfono, lo restauras aquí.</p><div class="btns"><button class="p" id="b_sv">Guardar respaldo</button></div><label>Restaurar desde un archivo<input id="b_f" type="file" accept=".json,application/json"></label><div class="btns"><button class="s" id="b_x">Cerrar</button></div>`;
+ $("b_x").onclick=()=>$("ov").classList.remove("on");
+ $("b_sv").onclick=async()=>{const dt=new Date().toISOString().slice(0,10);
+  const blob=new Blob([JSON.stringify({app:"farmasur",v:2,fecha:new Date().toISOString(),items:S.items,next:S.next,sel:S.sel,alerts:S.alerts,orders:S.orders})],{type:"application/json"});
+  if(await dl("farmasur-respaldo-"+dt+".json",blob)){S.lastBk=Date.now();save();$("ov").classList.remove("on");toast("Respaldo guardado")}};
+ $("b_f").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{let j;try{j=JSON.parse(r.result);if(!j||!Array.isArray(j.items)||!j.items.every(x=>x&&typeof x.n=="string"&&typeof x.en=="number"&&typeof x.sa=="number"&&typeof x.co=="number"))throw 0}catch(_){toast("Archivo no válido");return}
+   $("sh").innerHTML=`<h2>Restaurar respaldo</h2><p>El archivo tiene ${j.items.length} productos. Esto reemplaza los datos actuales de este teléfono.</p><div class="btns"><button class="s" id="r_x">Cancelar</button><button class="p" id="r_ok">Restaurar</button></div>`;
+   $("r_x").onclick=()=>$("ov").classList.remove("on");
+   $("r_ok").onclick=()=>{const it=j.items.map((x,i)=>({id:typeof x.id=="number"?x.id:i,n:String(x.n),u:String(x.u||""),en:x.en,sa:x.sa,co:x.co,usd:+x.usd||250}));
+    S={items:it,next:Math.max(-1,...it.map(x=>x.id))+1,sel:Array.isArray(j.sel)?j.sel:[],alerts:Array.isArray(j.alerts)?j.alerts:[],orders:Array.isArray(j.orders)?j.orders:[],lastBk:S.lastBk};
+    sortA();save();tab="d";$("ov").classList.remove("on");render();toast("Respaldo restaurado")}};
+  r.readAsText(f)};
+ $("ov").classList.add("on")}
+$("bk").onclick=bkSheet;
+const shut=()=>$("ov").classList.remove("on");
+const SW=new Set(["de","del","en","la","el","con","para","y","al","un","una"]);
+const tok=s=>[...new Set(s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/(\d)([a-z])/g,"$1 $2").replace(/([a-z])(\d)/g,"$1 $2").replace(/[^a-z0-9]+/g," ").trim().split(" ").filter(w=>w&&!SW.has(w)))];
+const rank=l=>{const a=tok(l);return S.items.map(x=>{const b=tok(x.n+" "+x.u),i=b.filter(w=>a.includes(w)).length;return [x,b.length&&a.length?0.7*i/b.length+0.3*i/a.length+(ex(x)>0?0.01:0):0]}).sort((p,q)=>q[1]-p[1])};
+function parseInv(t){const g=r=>{const m=t.match(r);return m?m[1].trim():""};const L=[];
+ t.split(/\r?\n/).forEach(l=>{const m=l.match(/^\s*[*\u2022]\s*(\d+)\s*[xX]?\s+(.+?)\s*$/);if(m)L.push({q:+m[1],t:m[2]})});
+ return {ped:g(/Pedido\s*#?\s*:?\s*([0-9A-Za-z-]+)/i),cli:g(/Entregar a\s*:\s*(.+)/i),L}}
+let INV=null;
+function facSheet(){
+ $("sh").innerHTML=`<h2>Factura</h2><p class="sub">Pega aquí el texto de la factura. Los productos son las líneas que empiezan con *.</p><textarea id="fa_t" placeholder="Pedido #: 123&#10;*1 Antigripal Jarabe 120 ml&#10;*2 Vitamina complejo B 120 ml"></textarea><div class="btns"><button class="s" id="fa_x">Cancelar</button><button class="p" id="fa_ok">Leer factura</button></div>`;
+ $("fa_x").onclick=shut;
+ $("fa_ok").onclick=()=>{const p=parseInv($("fa_t").value);if(!p.L.length){toast("No encontré productos (deben empezar con *)");return}
+  INV={ped:p.ped,cli:p.cli,rows:p.L.map(l=>{const r=rank(l.t);return {q:l.q,t:l.t,top:r.slice(0,3).map(z=>z[0].id),id:r[0][1]>=0.45?r[0][0].id:null}})};invView();if(INV.rows.some(r=>r.id===null))toast("⚠ Error: hay productos que no están en el inventario. No se descontará nada")};
+ $("ov").classList.add("on")}
+const opt=x=>`${esc(x.n)}${x.u?" "+esc(x.u):""} · ${ex(x)} disp.`;
+function stt(i){const r=INV.rows[i],e=$("fs"+i);if(!e)return;
+ if(r.id===null){e.className="fs wr";e.textContent="Elige el producto";return}
+ const x=S.items.find(y=>y.id==r.id),av=ex(x);
+ if(av<=0){e.className="fs bad";e.textContent="Agotado: no se puede descontar"}
+ else if(r.q>av){e.className="fs bad";e.textContent="Solo hay "+av+": se descontarán "+av}
+ else{e.className="fs ok";e.textContent="Quedarán "+(av-r.q)}}
+function updMis(){const m=INV.rows.filter(r=>r.id===null).map(r=>r.t),e=$("mis");if(!e)return;
+ e.style.display=m.length?"block":"none";e.innerHTML=m.length?"<b>⚠ Error: no están en el inventario:</b> "+m.map(esc).join("; ")+". No se descontará nada hasta que todos coincidan. Elige el producto en la lista; si no existe, agrégalo al inventario y vuelve a leer la factura.":"";
+ const b=$("iv_ok");if(b){b.disabled=m.length>0;b.style.opacity=m.length?".4":"1"}}
+function invView(){
+ const dup=INV.ped&&S.orders.includes(INV.ped);
+ $("sh").innerHTML=`<h2>Revisar factura</h2><p class="sub">${INV.ped?"Pedido #"+esc(INV.ped):"Sin número de pedido"}${INV.cli?" · "+esc(INV.cli):""}</p>${dup?'<div class="al">Este pedido ya se descontó antes. Revisa que no sea repetido.</div>':''}<div class="al" id="mis"></div>`+INV.rows.map((r,i)=>{
+  const top=r.top.map(id=>S.items.find(x=>x.id==id)).filter(Boolean),o=x=>`<option value="${x.id}"${r.id!==null&&r.id==x.id?" selected":""}>${opt(x)}</option>`;
+  return `<div class="fr"><b>${esc(r.t)}</b><div class="fq"><span class="sub">Cantidad</span><input type="number" inputmode="numeric" min="0" value="${r.q}" data-q="${i}"></div><select data-s="${i}"><option value="">— elegir producto —</option><optgroup label="Sugerencias">${top.map(o).join("")}</optgroup><optgroup label="Todos">${S.items.map(o).join("")}</optgroup></select><div class="fs" id="fs${i}"></div></div>`}).join("")+`<div class="btns"><button class="s" id="iv_x">Cancelar</button><button class="p" id="iv_ok">${dup?"Descontar de todos modos":"Descontar del inventario"}</button></div>`;
+ INV.rows.forEach((r,i)=>stt(i));updMis();
+ $("sh").oninput=$("sh").onchange=e=>{const t=e.target;
+  if(t.dataset.s!=null){INV.rows[+t.dataset.s].id=t.value===""?null:+t.value;stt(+t.dataset.s);updMis()}
+  if(t.dataset.q!=null){INV.rows[+t.dataset.q].q=Math.max(0,parseFloat(t.value)||0);stt(+t.dataset.q)}};
+ $("iv_x").onclick=shut;
+ $("iv_ok").onclick=()=>{if(INV.rows.some(r=>r.id===null)){toast("Error: hay productos sin coincidir. No se descontó nada");return}
+  const done=[],skip=[];
+  INV.rows.forEach(r=>{const x=r.id===null?null:S.items.find(y=>y.id==r.id);if(!x||r.q<=0){skip.push(r.t);return}
+   const av=ex(x),take=Math.max(0,Math.min(r.q,av));if(take<=0){skip.push(r.t+" (agotado)");return}
+   x.sa+=take;done.push({id:x.id,n:x.n,u:x.u,q:take,w:r.q,left:ex(x)});
+   if(av>0&&ex(x)<=0){S.alerts=S.alerts.filter(a=>a.id!=x.id);S.alerts.push({id:x.id,n:x.n});if(!S.sel.includes(x.id))S.sel.push(x.id)}});
+  if(INV.ped&&!S.orders.includes(INV.ped)){S.orders.push(INV.ped);S.orders=S.orders.slice(-500)}
+  S.last={ped:INV.ped,list:done.map(d=>({id:d.id,q:d.q}))};
+  sortA();save();render();resView(done,skip)};
+ $("ov").classList.add("on")}
+function resView(done,skip){
+ $("sh").innerHTML=`<h2>Factura descontada</h2>`+(done.length?done.map(d=>`<p style="margin:6px 0">✓ ${d.q} × ${esc(d.n)}${d.u?" "+esc(d.u):""} → quedan ${d.left}${d.q<d.w?' <span class="bad">(faltaron '+(d.w-d.q)+')</span>':''}${d.left<=0?' <b class="bad">· se agotó</b>':''}</p>`).join(""):'<p>No se descontó nada.</p>')+(skip.length?`<div class="al"><b>No se descontó:</b> ${skip.map(esc).join("; ")}</div>`:"")+`<div class="btns"><button class="s" id="rs_u">Deshacer</button><button class="p" id="rs_x">Listo</button></div>`;
+ $("rs_x").onclick=shut;
+ $("rs_u").onclick=()=>{const L=S.last;if(L){L.list.forEach(z=>{const p=S.items.find(y=>y.id==z.id);if(p)p.sa=Math.max(0,p.sa-z.q)});if(L.ped)S.orders=S.orders.filter(o=>o!=L.ped)}
+  S.alerts=S.alerts.filter(a=>{const p=S.items.find(y=>y.id==a.id);return p&&ex(p)<=0});S.last=null;save();shut();render();toast("Factura deshecha")};
+ $("ov").classList.add("on")}
+$("fa").onclick=facSheet;
+function sell(x){
+ const e=ex(x);
+ $("sh").innerHTML=`<h2>Vender</h2><p style="margin:0">${esc(x.n)}</p><p class="sub">Existencia: ${e}</p><label>Cantidad vendida<input id="s_q" type="number" inputmode="numeric" min="1" value="1"></label><div class="calc" id="calc"></div><div class="btns"><button class="s" id="s_x">Cancelar</button><button class="p" id="s_ok">Registrar venta</button></div>`;
+ const q=()=>Math.max(0,parseFloat($("s_q").value)||0);
+ const cu=()=>{const r=e-q();$("calc").textContent=r<0?"No alcanza: solo hay "+e:"Quedarán "+r};
+ $("s_q").oninput=cu;cu();
+ $("s_x").onclick=()=>$("ov").classList.remove("on");
+ $("s_ok").onclick=()=>{const n=q();if(n<=0||n>e){toast("Cantidad no válida");return}
+  x.sa+=n;
+  if(e-n<=0){S.alerts=S.alerts.filter(a=>a.id!=x.id);S.alerts.push({id:x.id,n:x.n});if(!S.sel.includes(x.id))S.sel.push(x.id);toast("⚠ Se agotó: "+x.n)}else toast("Vendido: "+n);
+  sortA();save();$("ov").classList.remove("on");render()};
+ $("ov").classList.add("on");setTimeout(()=>$("s_q").select(),50)}
+$("add").onclick=()=>form();
+$("ov").onclick=e=>{if(e.target.id=="ov")$("ov").classList.remove("on")};
+$("tabs").onclick=e=>{const b=e.target.closest("button");if(b){tab=b.dataset.t;render()}};
+$("q").oninput=render;
+$("list").onclick=e=>{const b=e.target.closest("button");if(!b)return;
+ if(b.id=="okal"){S.alerts=[];save();render();return}
+ if(b.id=="zl"){zlist();return}
+ if(b.id=="pl"){plist();return}
+ if(b.dataset.v)sell(S.items.find(x=>x.id==b.dataset.v));
+ if(b.dataset.e)form(S.items.find(x=>x.id==b.dataset.e));
+ if(b.dataset.d){const x=S.items.find(x=>x.id==b.dataset.d);
+  if(b.dataset.c){S.items=S.items.filter(y=>y.id!=x.id);S.sel=S.sel.filter(i=>i!=x.id);S.alerts=S.alerts.filter(a=>a.id!=x.id);save();render();toast("Eliminado");return}
+  b.dataset.c=1;b.textContent="Toca otra vez para eliminar";setTimeout(()=>{b.textContent="Eliminar";delete b.dataset.c},3000)}};
+$("list").onchange=e=>{const i=+e.target.dataset.i;const s=sel();e.target.checked?s.add(i):s.delete(i);S.sel=[...s];save();render()};
+$("cp").onclick=async()=>{const ss=sel(),m=ss.size?S.items.filter(x=>ss.has(x.id)):S.items.filter(x=>ex(x)<=0);
+ const t="Reponer – FarmaSur Las Tunas\n"+m.map(x=>"- "+x.n+(x.u?" ("+x.u+")":"")).join("\n");
+ try{await navigator.clipboard.writeText(t);toast("Lista copiada ("+m.length+")")}catch(e){toast("No se pudo copiar")}};
+$("ex").onclick=async()=>{const c=v=>'"'+String(v).replace(/"/g,'""')+'"';
+ const rows=[["No","Nombre del producto","U/M","Entrada","Salida","Existencia","Compra","$ Inversión","USD Tienda","Precio Página"],...S.items.map((x,i)=>[i+1,x.n,x.u,x.en,x.sa,ex(x),x.co,inv(x),x.usd,pp(x)])];
+ const csv="\ufeff"+rows.map(r=>r.map(c).join(",")).join("\n");
+ if(await dl("inventario-farmasur.csv",new Blob([csv],{type:"text/csv"})))toast("Descargando CSV")};
+render();
+</script></body></html>

@@ -1,0 +1,13 @@
+FARMASUR - Inventario
+
+Contenido:
+- index.html  (la página completa; no necesita nada más)
+
+Para publicarla en GitHub Pages:
+1. Crea un repositorio público llamado farmasur.
+2. Sube index.html.
+3. Settings > Pages > Branch: main > Save.
+4. Tu enlace: https://TU-USUARIO.github.io/farmasur
+
+Los datos se guardan en el navegador de cada teléfono.
+Usa el botón "Respaldo" para guardarlos en un archivo.
